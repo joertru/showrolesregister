@@ -1,0 +1,5 @@
+name = Show Roles Register
+description = This module allows you to display the roles in the registration form and edit the enabled users without permission "Administer permissions" by joertru.co
+core = 7.x
+files[] = showrolesregister.module
+package = Other

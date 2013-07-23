@@ -1,0 +1,65 @@
+<?php
+/**
+ * @file
+ * TODO: This module allows to add a new permission to assign any role the ability to view the roles in the creation of users
+ */
+ 
+function showrolesregister_permission() {
+  return array(
+    'Show roles' => array(
+      'title' => t('Show roles'),
+      'description' => t('Show roles'),
+      'restrict access' => TRUE,
+    ),
+  );
+}
+
+
+function showrolesregister_form_alter(&$form, &$form_state, $form_id) {
+  global $user;
+  switch ($form_id)  {
+    case 'user_register_form':
+      $account = $form['#user']; 
+      $register = ($form['#user']->uid > 0 ? FALSE : TRUE);
+      $roles = array_map('check_plain', user_roles(TRUE));
+      
+      $checkbox_authenticated = array(
+       '#type' => 'checkbox',
+       '#title' => $roles[DRUPAL_AUTHENTICATED_RID],
+       '#default_value' => TRUE,
+       '#disabled' => TRUE,
+      );
+      $form['account']['roles'] = array(
+        '#type' => 'checkboxes',
+        '#title' => t('Roles'),
+        '#default_value' => (!$register && isset($account->roles) ? array_keys($account->roles) : array()),
+        '#options' => $roles,
+        '#access' => $roles && (user_access('administer permissions') || user_access('Show roles')),
+        DRUPAL_AUTHENTICATED_RID => $checkbox_authenticated,
+     );
+    break;
+    case 'user_profile_form':
+      $account = $form['#user']; 
+      $register = ($form['#user']->uid > 0 ? FALSE : TRUE);
+      $roles = array_map('check_plain', user_roles(TRUE));
+      
+      $checkbox_authenticated = array(
+       '#type' => 'checkbox',
+       '#title' => $roles[DRUPAL_AUTHENTICATED_RID],
+       '#default_value' => TRUE,
+       '#disabled' => TRUE,
+      );
+      $form['account']['roles'] = array(
+        '#type' => 'checkboxes',
+        '#title' => t('Roles'),
+        '#default_value' => (!$register && isset($account->roles) ? array_keys($account->roles) : array()),
+        '#options' => $roles,
+        '#access' => $roles && (user_access('administer permissions') || user_access('Show roles')),
+        DRUPAL_AUTHENTICATED_RID => $checkbox_authenticated,
+     );
+    break;
+  }
+}
+
+ 
+
