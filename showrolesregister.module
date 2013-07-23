@@ -1,7 +1,7 @@
 <?php
 /**
  * @file
- * TODO: This module allows to add a new permission to assign any role the ability to view the roles in the creation of users
+ * TODO: This module allows you to display the roles in the registration form and edit the enabled users without permission "Administer permissions"
  */
  
 function showrolesregister_permission() {
