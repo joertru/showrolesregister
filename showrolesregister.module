@@ -6,7 +6,7 @@
  
 function showrolesregister_permission() {
   return array(
-    'Show roles' => array(
+    'Show Roles' => array(
       'title' => t('Show roles'),
       'description' => t('Show roles'),
       'restrict access' => TRUE,
@@ -14,7 +14,9 @@ function showrolesregister_permission() {
   );
 }
 
-
+/**
+ * Implements hook_form_alter().
+ */
 function showrolesregister_form_alter(&$form, &$form_state, $form_id) {
   global $user;
   switch ($form_id)  {
